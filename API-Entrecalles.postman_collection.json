@@ -1,0 +1,363 @@
+{
+  "info": {
+    "name": "API de Entrecalles - Ejemplos Cuba",
+    "description": "Devuelve la calle principal y las entrecalles cercanas a una coordenada GPS (OpenStreetMap: Nominatim + Overpass).\n\nEjemplos con ubicaciones famosas de Cuba.\n\nBase URL configurable con la variable {{baseUrl}} (por defecto https://calles.vercel.app).\n\nNota: el endpoint /entrecalles consulta servicios públicos de OpenStreetMap y puede tardar hasta ~50s. Subí el timeout de Postman en Settings > Request timeout si hace falta.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://calles.vercel.app",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Plaza de Armas, La Habana Vieja",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/entrecalles?lat=23.14022&lon=-82.34938&radio_m=100",
+          "host": ["{{baseUrl}}"],
+          "path": ["entrecalles"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "23.14022",
+              "description": "Latitud"
+            },
+            {
+              "key": "lon",
+              "value": "-82.34938",
+              "description": "Longitud"
+            },
+            {
+              "key": "radio_m",
+              "value": "100",
+              "description": "Radio de búsqueda en metros"
+            }
+          ]
+        },
+        "description": "Ubicación histórica en el corazón de La Habana Vieja, rodeada de calles coloniales."
+      },
+      "response": [
+        {
+          "name": "200 OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.14022&lon=-82.34938&radio_m=100",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                { "key": "lat", "value": "23.14022" },
+                { "key": "lon", "value": "-82.34938" },
+                { "key": "radio_m", "value": "100" }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"direccion\": \"Plaza de Armas, Baratillo, Catedral, La Habana Vieja, La Habana, Cuba\",\n  \"calle_principal\": \"Baratillo\",\n  \"entrecalles\": [\"Enna\", \"Narciso López\", \"O'Reilly\", \"Obispo\", \"Oficios\", \"Tacón\"],\n  \"lat\": 23.14022,\n  \"lon\": -82.34938\n}"
+        }
+      ]
+    },
+    {
+      "name": "Castillo de San Carlos de la Cabaña",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/entrecalles?lat=23.1405&lon=-82.3357&radio_m=100",
+          "host": ["{{baseUrl}}"],
+          "path": ["entrecalles"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "23.1405",
+              "description": "Latitud"
+            },
+            {
+              "key": "lon",
+              "value": "-82.3357",
+              "description": "Longitud"
+            },
+            {
+              "key": "radio_m",
+              "value": "100",
+              "description": "Radio de búsqueda en metros"
+            }
+          ]
+        },
+        "description": "Fortaleza histórica del siglo XVII, Monumento Nacional en la bahía de La Habana."
+      },
+      "response": []
+    },
+    {
+      "name": "Capitolio Nacional",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/entrecalles?lat=23.1396&lon=-82.3577&radio_m=100",
+          "host": ["{{baseUrl}}"],
+          "path": ["entrecalles"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "23.1396",
+              "description": "Latitud"
+            },
+            {
+              "key": "lon",
+              "value": "-82.3577",
+              "description": "Longitud"
+            },
+            {
+              "key": "radio_m",
+              "value": "100",
+              "description": "Radio de búsqueda en metros"
+            }
+          ]
+        },
+        "description": "Edificio icónico de La Habana, centro político y cultural."
+      },
+      "response": []
+    },
+    {
+      "name": "Malecón de La Habana",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/entrecalles?lat=23.1417&lon=-82.3867&radio_m=100",
+          "host": ["{{baseUrl}}"],
+          "path": ["entrecalles"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "23.1417",
+              "description": "Latitud"
+            },
+            {
+              "key": "lon",
+              "value": "-82.3867",
+              "description": "Longitud"
+            },
+            {
+              "key": "radio_m",
+              "value": "100",
+              "description": "Radio de búsqueda en metros"
+            }
+          ]
+        },
+        "description": "Paseo marítimo más famoso de La Habana, con gran densidad de calles paralelas."
+      },
+      "response": []
+    },
+    {
+      "name": "Trinidad (Patrimonio de la Humanidad)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/entrecalles?lat=21.8449&lon=-76.9386&radio_m=100",
+          "host": ["{{baseUrl}}"],
+          "path": ["entrecalles"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "21.8449",
+              "description": "Latitud"
+            },
+            {
+              "key": "lon",
+              "value": "-76.9386",
+              "description": "Longitud"
+            },
+            {
+              "key": "radio_m",
+              "value": "100",
+              "description": "Radio de búsqueda en metros"
+            }
+          ]
+        },
+        "description": "Pueblo colonial mejor preservado de Cuba, con trazado urbano del siglo XVI."
+      },
+      "response": []
+    },
+    {
+      "name": "Santiago de Cuba (Centro)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/entrecalles?lat=20.0247&lon=-75.8219&radio_m=100",
+          "host": ["{{baseUrl}}"],
+          "path": ["entrecalles"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "20.0247",
+              "description": "Latitud"
+            },
+            {
+              "key": "lon",
+              "value": "-75.8219",
+              "description": "Longitud"
+            },
+            {
+              "key": "radio_m",
+              "value": "100",
+              "description": "Radio de búsqueda en metros"
+            }
+          ]
+        },
+        "description": "Segunda ciudad más importante de Cuba, cuna de la Revolución."
+      },
+      "response": []
+    },
+    {
+      "name": "Monumento al Che Guevara, Santa Clara",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/entrecalles?lat=22.4116&lon=-79.9717&radio_m=80",
+          "host": ["{{baseUrl}}"],
+          "path": ["entrecalles"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "22.4116",
+              "description": "Latitud"
+            },
+            {
+              "key": "lon",
+              "value": "-79.9717",
+              "description": "Longitud"
+            },
+            {
+              "key": "radio_m",
+              "value": "80",
+              "description": "Radio de búsqueda en metros"
+            }
+          ]
+        },
+        "description": "Plaza central con monumento al Guerrillero Heroico, centro de Santa Clara."
+      },
+      "response": []
+    },
+    {
+      "name": "Baracoa Centro",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/entrecalles?lat=20.3485&lon=-74.5024&radio_m=80",
+          "host": ["{{baseUrl}}"],
+          "path": ["entrecalles"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "20.3485",
+              "description": "Latitud"
+            },
+            {
+              "key": "lon",
+              "value": "-74.5024",
+              "description": "Longitud"
+            },
+            {
+              "key": "radio_m",
+              "value": "80",
+              "description": "Radio de búsqueda en metros"
+            }
+          ]
+        },
+        "description": "Primer pueblo fundado por Colón en Cuba, capital de Guantánamo."
+      },
+      "response": []
+    },
+    {
+      "name": "Viñales (Mogote)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/entrecalles?lat=22.5883&lon=-83.7222&radio_m=80",
+          "host": ["{{baseUrl}}"],
+          "path": ["entrecalles"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "22.5883",
+              "description": "Latitud"
+            },
+            {
+              "key": "lon",
+              "value": "-83.7222",
+              "description": "Longitud"
+            },
+            {
+              "key": "radio_m",
+              "value": "80",
+              "description": "Radio de búsqueda en metros"
+            }
+          ]
+        },
+        "description": "Valle famoso por sus mogotes y cultivos de tabaco, Pinar del Río."
+      },
+      "response": []
+    },
+    {
+      "name": "Remedios Centro",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/entrecalles?lat=21.5423&lon=-80.3180&radio_m=80",
+          "host": ["{{baseUrl}}"],
+          "path": ["entrecalles"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "21.5423",
+              "description": "Latitud"
+            },
+            {
+              "key": "lon",
+              "value": "-80.3180",
+              "description": "Longitud"
+            },
+            {
+              "key": "radio_m",
+              "value": "80",
+              "description": "Radio de búsqueda en metros"
+            }
+          ]
+        },
+        "description": "Pueblo colonial en Villa Clara, centro histórico bien preservado."
+      },
+      "response": []
+    },
+    {
+      "name": "Health check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Verifica que la API está activa y respondiendo."
+      },
+      "response": []
+    }
+  ]
+}

@@ -17,6 +17,7 @@ import httpx
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from shapely.geometry import Point, LineString
 
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse"
 
@@ -96,6 +97,65 @@ async def _calles_cercanas(
     )
 
 
+async def _calles_con_geometria(
+    client: httpx.AsyncClient, lat: float, lon: float, radio_m: int = 150
+) -> tuple[str, list[str]]:
+    """Identifica calles por geometría exacta, no por radio ciego.
+
+    Devuelve (calle_principal, entrecalles) filtrando ways cuya geometría
+    cruza el punto exacto (distancia < 10m).
+    """
+    query = f"""
+    [out:json][timeout:30];
+    way(around:{radio_m},{lat},{lon})["highway"]["name"];
+    out geom;
+    """
+    punto = Point(lon, lat)
+    calles_cercanas = []
+
+    ultimo_error: Exception | None = None
+    for url in OVERPASS_MIRRORS:
+        try:
+            r = await client.post(url, data=query, headers=HEADERS, timeout=40)
+            r.raise_for_status()
+            data = r.json()
+
+            for el in data.get("elements", []):
+                if el.get("type") != "way" or "geometry" not in el:
+                    continue
+
+                coords = el["geometry"]
+                if not coords:
+                    continue
+
+                try:
+                    linea = LineString([(c["lon"], c["lat"]) for c in coords])
+                    distancia = linea.distance(punto)
+
+                    if distancia < 0.0001:  # ~10m en grados
+                        nombre = el.get("tags", {}).get("name", "Sin nombre")
+                        calles_cercanas.append((distancia, nombre))
+                except Exception:
+                    continue
+
+            if calles_cercanas:
+                calles_cercanas.sort()
+                calle_principal = calles_cercanas[0][1] if calles_cercanas else "No identificada"
+                entrecalles = [c[1] for c in calles_cercanas[1:]]
+                return (calle_principal, entrecalles)
+
+            return ("No identificada", [])
+        except httpx.HTTPError as e:
+            ultimo_error = e
+            await asyncio.sleep(0.5)
+            continue
+
+    raise HTTPException(
+        status_code=502,
+        detail=f"Todos los servidores Overpass fallaron. Último error: {ultimo_error}",
+    )
+
+
 @app.get("/entrecalles", response_model=EntrecallesResponse)
 async def entrecalles(
     lat: float = Query(..., ge=-90, le=90, description="Latitud"),
@@ -117,6 +177,35 @@ async def entrecalles(
         todas = await _calles_cercanas(client, lat, lon, radio_m)
 
     entrecalles = [c for c in todas if c != calle_principal]
+
+    return EntrecallesResponse(
+        direccion=direccion,
+        calle_principal=calle_principal,
+        entrecalles=entrecalles,
+        lat=lat,
+        lon=lon,
+    )
+
+
+@app.get("/entrecalles/preciso", response_model=EntrecallesResponse)
+async def entrecalles_preciso(
+    lat: float = Query(..., ge=-90, le=90, description="Latitud"),
+    lon: float = Query(..., ge=-180, le=180, description="Longitud"),
+):
+    """Modo de máxima precisión usando geometría exacta (shapely).
+
+    Busca ways cuya geometría REALMENTE cruza el punto exacto.
+    Más lento que /entrecalles pero sin ambigüedad.
+    """
+    async with httpx.AsyncClient() as client:
+        try:
+            geo = await _reverse_geocode(client, lat, lon)
+        except httpx.HTTPError as e:
+            raise HTTPException(status_code=502, detail=f"Error consultando Nominatim: {e}")
+
+        direccion = geo.get("display_name", "No disponible")
+
+        calle_principal, entrecalles = await _calles_con_geometria(client, lat, lon, radio_m=150)
 
     return EntrecallesResponse(
         direccion=direccion,
