@@ -1,0 +1,231 @@
+{
+  "info": {
+    "name": "API de Entrecalles v5 (Topología + AEQD + rumbo)",
+    "description": "Colección para la API v5. El endpoint /entrecalles usa topología real de intersecciones (ids de nodo OSM), distancias en metros reales (proyección Azimutal Equidistante, no Web Mercator), radio de descarga desacoplado (las esquinas que acotan se buscan en un anillo ancho), selección de calle principal por distancia + jerarquía vial, y bracketing 'entre A y B' por rumbo local con la transversal más perpendicular. Campos: entre {calle_a, calle_b, lado_a, lado_b}, interseccion_mas_cercana {calles, distancia_m}, distancia_a_calle_principal_m, fuente y advertencia. Cada request incluye tests automáticos. Datos: © OpenStreetMap contributors.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://calles.vercel.app", "type": "string" }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Tests comunes a todas las peticiones /entrecalles.",
+          "if (pm.request.url.getPath().indexOf('entrecalles') !== -1) {",
+          "  pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+          "  var j = pm.response.json();",
+          "  pm.test('Tiene calle_principal (string no vacío)', function () {",
+          "    pm.expect(j.calle_principal).to.be.a('string').and.not.empty;",
+          "  });",
+          "  pm.test('entrecalles es un array', function () {",
+          "    pm.expect(j.entrecalles).to.be.an('array');",
+          "  });",
+          "  pm.test('Objeto entre {calle_a, calle_b, lado_a, lado_b} presente', function () {",
+          "    pm.expect(j.entre).to.be.an('object');",
+          "    pm.expect(j.entre).to.have.property('calle_a');",
+          "    pm.expect(j.entre).to.have.property('calle_b');",
+          "    pm.expect(j.entre.lado_a).to.be.an('object').and.to.have.property('calles_en_esquina');",
+          "    pm.expect(j.entre.lado_b).to.be.an('object').and.to.have.property('calles_en_esquina');",
+          "  });",
+          "  pm.test('Si hay ambos lados, son calles distintas (flanquean el punto)', function () {",
+          "    if (j.entre.calle_a && j.entre.calle_b) {",
+          "      pm.expect(j.entre.calle_a).to.not.eql(j.entre.calle_b);",
+          "    }",
+          "  });",
+          "  pm.test('distancia_a_calle_principal_m es número >= 0', function () {",
+          "    pm.expect(j.distancia_a_calle_principal_m).to.be.a('number').and.to.be.at.least(0);",
+          "  });",
+          "  pm.test('fuente es topologia-nodos o proximidad-geometrica', function () {",
+          "    pm.expect(j.fuente).to.be.oneOf(['topologia-nodos', 'proximidad-geometrica']);",
+          "  });",
+          "  pm.test('atribucion OSM presente', function () {",
+          "    pm.expect(j.atribucion).to.include('OpenStreetMap');",
+          "  });",
+          "  pm.test('calle_principal no aparece dentro de entrecalles', function () {",
+          "    pm.expect(j.entrecalles).to.not.include(j.calle_principal);",
+          "  });",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "LA HABANA",
+      "item": [
+        {
+          "name": "Habana Vieja (Plaza de Armas)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.14022&lon=-82.34938&radio_m=80",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                { "key": "lat", "value": "23.14022" },
+                { "key": "lon", "value": "-82.34938" },
+                { "key": "radio_m", "value": "80" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Capitolio Nacional",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.1396&lon=-82.3577",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                { "key": "lat", "value": "23.1396" },
+                { "key": "lon", "value": "-82.3577" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Vedado (calles numeradas)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.1367&lon=-82.3860&radio_m=100",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                { "key": "lat", "value": "23.1367" },
+                { "key": "lon", "value": "-82.3860" },
+                { "key": "radio_m", "value": "100" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "OTRAS PROVINCIAS",
+      "item": [
+        {
+          "name": "Santiago de Cuba (Parque Céspedes)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=20.0247&lon=-75.8219",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                { "key": "lat", "value": "20.0247" },
+                { "key": "lon", "value": "-75.8219" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Camagüey (Centro histórico)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=21.3808&lon=-77.9169",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                { "key": "lat", "value": "21.3808" },
+                { "key": "lon", "value": "-77.9169" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CASOS BORDE",
+      "item": [
+        {
+          "name": "Latitud fuera de rango (espera 422)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Rechaza latitud inválida con 422', function () {",
+                  "  pm.response.to.have.status(422);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=200&lon=-82.34",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                { "key": "lat", "value": "200" },
+                { "key": "lon", "value": "-82.34" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "En medio del mar (espera 404 sin calles)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Sin calles cercanas devuelve 404', function () {",
+                  "  pm.response.to.have.status(404);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=24.5&lon=-80.5&radio_m=200",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                { "key": "lat", "value": "24.5" },
+                { "key": "lon", "value": "-80.5" },
+                { "key": "radio_m", "value": "200" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health check",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('status ok', function () {",
+              "  pm.expect(pm.response.json().status).to.eql('ok');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    }
+  ]
+}
