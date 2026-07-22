@@ -1,0 +1,458 @@
+{
+  "info": {
+    "name": "API de Entrecalles - Cuba (Unificada y Precisa)",
+    "description": "Pruebas con ubicaciones de Cuba. El endpoint /entrecalles ahora usa geometría exacta (Shapely + PyProj) por defecto, calculando distancias en metros reales para distinguir la calle principal de las entrecalles, descartando calles paralelas.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://calles.vercel.app",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "LA HABANA",
+      "item": [
+        {
+          "name": "Habana Vieja",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.14022&lon=-82.34938",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "23.14022"},
+                {"key": "lon", "value": "-82.34938"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Capitolio Nacional",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.1396&lon=-82.3577",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "23.1396"},
+                {"key": "lon", "value": "-82.3577"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Vedado",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.1367&lon=-82.3860",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "23.1367"},
+                {"key": "lon", "value": "-82.3860"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Malecón",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.1417&lon=-82.3867",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "23.1417"},
+                {"key": "lon", "value": "-82.3867"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Centro Habana",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.1380&lon=-82.3660",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "23.1380"},
+                {"key": "lon", "value": "-82.3660"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Miramar",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.1600&lon=-82.4000",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "23.1600"},
+                {"key": "lon", "value": "-82.4000"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Prueba con Radio Personalizado (100m)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.1367&lon=-82.3860&radio_m=100",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "23.1367"},
+                {"key": "lon", "value": "-82.3860"},
+                {"key": "radio_m", "value": "100", "description": "Amplía la búsqueda para capturar más entrecalles en zonas dispersas"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PROVINCIA MATANZAS",
+      "item": [
+        {
+          "name": "Varadero",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.1367&lon=-81.2500",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "23.1367"},
+                {"key": "lon", "value": "-81.2500"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Matanzas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.0300&lon=-81.5900",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "23.0300"},
+                {"key": "lon", "value": "-81.5900"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cardenas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=23.0400&lon=-81.2000",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "23.0400"},
+                {"key": "lon", "value": "-81.2000"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PROVINCIA VILLA CLARA",
+      "item": [
+        {
+          "name": "Santa Clara",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=22.4116&lon=-79.9717",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "22.4116"},
+                {"key": "lon", "value": "-79.9717"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Remedios",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=21.5423&lon=-80.3180",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "21.5423"},
+                {"key": "lon", "value": "-80.3180"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PROVINCIA SANCTI SPIRITUS",
+      "item": [
+        {
+          "name": "Trinidad",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=21.8449&lon=-76.9386",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "21.8449"},
+                {"key": "lon", "value": "-76.9386"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Sancti Spiritus",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=21.9344&lon=-79.4439",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "21.9344"},
+                {"key": "lon", "value": "-79.4439"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PROVINCIA CAMAGÜEY",
+      "item": [
+        {
+          "name": "Camagüey",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=21.3794&lon=-77.9161",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "21.3794"},
+                {"key": "lon", "value": "-77.9161"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Moron",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=21.4100&lon=-78.6300",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "21.4100"},
+                {"key": "lon", "value": "-78.6300"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PROVINCIA HOLGUÍN",
+      "item": [
+        {
+          "name": "Holguín",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=20.8864&lon=-76.2633",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "20.8864"},
+                {"key": "lon", "value": "-76.2633"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Gibara",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=21.1300&lon=-76.1300",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "21.1300"},
+                {"key": "lon", "value": "-76.1300"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PROVINCIA SANTIAGO DE CUBA",
+      "item": [
+        {
+          "name": "Santiago de Cuba",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=20.0247&lon=-75.8219",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "20.0247"},
+                {"key": "lon", "value": "-75.8219"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Castillo del Morro",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=20.0268&lon=-75.7843",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "20.0268"},
+                {"key": "lon", "value": "-75.7843"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PROVINCIA GUANTÁNAMO",
+      "item": [
+        {
+          "name": "Baracoa",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=20.3485&lon=-74.5024",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "20.3485"},
+                {"key": "lon", "value": "-74.5024"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Guantanamo",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=20.1450&lon=-75.2094",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "20.1450"},
+                {"key": "lon", "value": "-75.2094"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PROVINCIA PINAR DEL RÍO",
+      "item": [
+        {
+          "name": "Viñales",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=22.5883&lon=-83.7222",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "22.5883"},
+                {"key": "lon", "value": "-83.7222"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Pinar del Río",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=22.4129&lon=-83.7291",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "22.4129"},
+                {"key": "lon", "value": "-83.7291"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PROVINCIA CIENFUEGOS",
+      "item": [
+        {
+          "name": "Cienfuegos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/entrecalles?lat=22.1451&lon=-80.4413",
+              "host": ["{{baseUrl}}"],
+              "path": ["entrecalles"],
+              "query": [
+                {"key": "lat", "value": "22.1451"},
+                {"key": "lon", "value": "-80.4413"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "UTILIDADES",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
